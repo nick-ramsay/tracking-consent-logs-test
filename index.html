@@ -53,12 +53,13 @@
                 console.log('DD on - post grant', Date.now())
                 window.DD_LOGS.onReady(function () {
                     window.DD_LOGS.setTrackingConsent('not-granted');
+                }).then(() => {
+                    console.log('DD off - post grant new normal', Date.now());
+                    setTimeout(() => {
+                        console.log('DD off - post deny new with timeout', Date.now())
+                    }, 5000)
                 });
                 //window.DD_LOGS.setTrackingConsent('not-granted');
-                console.log('DD off - post deny new normal', Date.now())
-                setTimeout(() => {
-                    console.log('DD off - post deny new with timeout', Date.now())
-                }, 5000)
             });
         });
     </script>
