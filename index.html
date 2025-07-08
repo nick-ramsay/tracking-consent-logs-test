@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testing Tracking Consent for Browser Logs</title>
+    <script>
+        (function (h, o, u, n, d) {
+            h = h[d] = h[d] || { q: [], onReady: function (c) { h.q.push(c) } }
+            d = o.createElement(u); d.async = 1; d.src = n
+            n = o.getElementsByTagName(u)[0]; n.parentNode.insertBefore(d, n)
+        })(window, document, 'script', 'https://www.datadoghq-browser-agent.com/us1/v6/datadog-logs.js', 'DD_LOGS')
+        window.DD_LOGS.onReady(function () {
+            window.DD_LOGS.init({
+                clientToken: 'pubf312042390226dd59cbb4791ddc1561d',
+                site: 'datadoghq.com',
+                service: 'tracking-consent-logs-test',
+                env: 'production',
+                version: '1.0.0',
+                forwardErrorsToLogs: true,
+                sessionSampleRate: 100,
+                trackingConsent: 'not-granted',
+            })
+        })
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const consentButton = document.getElementById("consentButton");
+            consentButton.addEventListener("click", function () {
+                // Simulate giving consent
+                console.log("Consent given for tracking logs.");
+                window.DD_LOGS.setTrackingConsent('granted');
+
+                // Here you would typically send the consent to your server or tracking service
+                // For this example, we just log it to the console
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const generateLogsButton = document.getElementById("generateLogsButton");
+            generateLogsButton.addEventListener("click", function () {
+                // Simulate generating logs
+                console.log('DD off - initial', Date.now())
+                window.DD_LOGS.setTrackingConsent('granted');
+                console.log('DD on - post grant', Date.now())
+                window.DD_LOGS.setTrackingConsent('not-granted');
+                console.log('DD off - post deny new normal', Date.now())
+                setTimeout(() => {
+                    console.log('DD off - post deny new with timeout', Date.now())
+                }, 5000)
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div>
+        <button id="consentButton">Give Consent</button>
+        <button id="generateLogsButton">Generate Logs</button>
+    </div>
+
+</body>
+
+</html>
