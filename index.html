@@ -63,12 +63,22 @@
             });
         });
     </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const generateLogsAfterNoConsent = document.getElementById("generateLogsAfterNoConsent");
+            generateLogsAfterNoConsent.addEventListener("click", function () {
+                // Simulate generating logs after consent is not granted
+                console.log("Consent now disabled, this should not be ingested");
+            });
+        });
+    </script>
 </head>
 
 <body>
     <div>
         <button id="consentButton">Give Consent</button>
         <button id="generateLogsButton">Generate Logs</button>
+        <button id="generateLogsAfterNoConsent">Generate Logs with Disabled Consent</button>
     </div>
 
 </body>
