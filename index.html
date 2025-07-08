@@ -27,8 +27,8 @@
     </script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            const consentButton = document.getElementById("consentRevokedButton");
-            consentButton.addEventListener("click", function () {
+            const consentRevokedButton = document.getElementById("consentRevokedButton");
+            consentRevokedButton.addEventListener("click", function () {
                 // Simulate giving consent
                 console.log("Consent revoked for tracking logs.");
                 window.DD_LOGS.onReady(function () {
@@ -40,12 +40,12 @@
             });
         });
     </script>
-      <script>
+    <script>
         document.addEventListener("DOMContentLoaded", function () {
             const consentButton = document.getElementById("consentButton");
             consentButton.addEventListener("click", function () {
                 // Simulate giving consent
-                console.log("Consent revoked for tracking logs.");
+                console.log("Consent granted for tracking logs.");
                 window.DD_LOGS.onReady(function () {
                     window.DD_LOGS.setTrackingConsent('granted');
                 });
